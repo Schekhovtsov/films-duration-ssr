@@ -72,7 +72,7 @@ const Navbar: FC = () => {
               ))}
             </Menu>
           </Box>
-          
+
           <Typography
             variant="h6"
             noWrap
