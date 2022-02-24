@@ -1,14 +1,16 @@
+import { Container } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { api } from '../api';
-import Navbar from '../components/AppBar';
+import { FilmsTable } from '../components/FilmsTable';
+import Navbar from '../components/Navbar';
 import { useStore } from '../components/StoreProvider';
 
 const Home: NextPage = observer(({ initialState }: any) => {
-  const store = useStore();
 
-  console.log('data from props: ', initialState.data.results)
+  const films = initialState.data.results;
+  const store = useStore();  
 
   useEffect(() => {
     store.initApp();
@@ -18,12 +20,9 @@ const Home: NextPage = observer(({ initialState }: any) => {
   return (
     <div>
       <Navbar />
-      {store.isInit ? 'App is init' : 'App is Not Init'}
-      {
-        // initialState.data.results.map((test: any) => { <h1>test</h1> })
-        //alert(Array.isArray(initialState.data.results))
-      }
-       
+      <Container maxWidth="xl">
+        <FilmsTable data={films} />
+      </Container>
     </div>
   );
 });

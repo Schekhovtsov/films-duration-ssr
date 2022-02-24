@@ -1,7 +1,8 @@
-import { makeAutoObservable } from 'mobx'
-import { enableStaticRendering } from 'mobx-react-lite'
+import { makeAutoObservable } from 'mobx';
+import { enableStaticRendering } from 'mobx-react-lite';
+import { makePersistable } from 'mobx-persist-store';
 
-enableStaticRendering(typeof window === 'undefined')
+enableStaticRendering(typeof window === 'undefined');
 
 export class Store {
   filmsMobx = {};
@@ -9,6 +10,7 @@ export class Store {
 
   constructor() {
     makeAutoObservable(this);
+    
   }
 
   initApp = () => {
