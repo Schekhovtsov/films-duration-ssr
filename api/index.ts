@@ -12,13 +12,14 @@ const instance = axios.create({
 
 export const api = {
 
-  getFilmByTitle(title: string) {
+  getFilmByTitle(title: string, page = 1) {
     return instance.get<any>(
       '/search/movie',
       {
         params: {
           ...API_DEFAULT_PARAMS,
           query: title,
+          page: page,
         },
       },
     );

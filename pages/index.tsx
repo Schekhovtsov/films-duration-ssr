@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Container, Divider } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
@@ -12,21 +12,15 @@ import { IFilm } from '../utils/types';
 //   data: IFilm[]
 // }
 
-const Home: NextPage = observer(({ initialState }: any ) => {
-
-  const films: IFilm[] = initialState.data.results;
-  const store = useStore();
-
-  useEffect(() => {
-    store.initApp();
-    return () => {};
-  }, [store]);
-
+const Home: NextPage = observer(({ initialState }: any) => {
   return (
     <div>
       <Navbar />
       <Container maxWidth="xl">
-        <FilmsTable data={films} />
+        <div>
+          <h1>Welcome</h1>
+        </div>
+        <FilmsTable data={initialState.data} />
       </Container>
     </div>
   );
@@ -34,7 +28,8 @@ const Home: NextPage = observer(({ initialState }: any ) => {
 
 export const getServerSideProps = async () => {
   const title = 'Godfather';
-  const response = await api.getFilmByTitle(title);
+  const page = 1;
+  const response = await api.getFilmByTitle(title, page);
 
   return {
     props: {

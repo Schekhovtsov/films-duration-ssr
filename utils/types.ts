@@ -16,5 +16,10 @@ export interface IFilm {
   }
 
   export interface ITableProps {
-    data: IFilm[];
+    data: {
+      page: number,
+      total_pages: number,
+      total_results: number,
+      results: IFilm[],
+    };
   }
