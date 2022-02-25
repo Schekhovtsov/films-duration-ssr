@@ -1,5 +1,6 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { ITableProps } from '../utils/types';
 
 const columns = [
   {
@@ -15,7 +16,24 @@ const columns = [
   },
 ];
 
-export const FilmsTable = ({ data }: any) => {
+type TFilm = {
+  title: string,
+  score: number,
+  views: number,
+  img: string,
+}
+
+const createData = (title: string, score: number, views: number, img: string) => {
+  console.log({ title, score, views, img });
+}
+
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 'url'),
+]
+
+
+
+export const FilmsTable = ({ data }: ITableProps) => {
   return (
     <div>
       <DataGrid

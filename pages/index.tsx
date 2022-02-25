@@ -6,11 +6,16 @@ import { api } from '../api';
 import { FilmsTable } from '../components/FilmsTable';
 import Navbar from '../components/Navbar';
 import { useStore } from '../components/StoreProvider';
+import { IFilm } from '../utils/types';
 
-const Home: NextPage = observer(({ initialState }: any) => {
+// export interface IInitialState {
+//   data: IFilm[]
+// }
 
-  const films = initialState.data.results;
-  const store = useStore();  
+const Home: NextPage = observer(({ initialState }: any ) => {
+
+  const films: IFilm[] = initialState.data.results;
+  const store = useStore();
 
   useEffect(() => {
     store.initApp();
