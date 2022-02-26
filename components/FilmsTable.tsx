@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { IFilm, ITableProps } from '../utils/types';
+import { TablePagination } from '@mui/material';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { TablePagination } from '@mui/material';
-import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
+import Image from 'next/image';
+import React from 'react';
+import { IFilm } from '../utils/types';
+import { useStore } from './StoreProvider';
 
-export const FilmsTable = ({ data }: ITableProps) => {
+export const FilmsTable = observer(() => {
+  const store = useStore();
+
+  const films = store.filmsMobx.data.results;
 
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(1);
@@ -20,7 +24,9 @@ export const FilmsTable = ({ data }: ITableProps) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -36,20 +42,19 @@ export const FilmsTable = ({ data }: ITableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.results.map((film) => (
+          {films.map((film: IFilm) => (
             <TableRow
               key={film.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                <InfoWrapper>
-                  <Poster
-                    src={`https://www.themoviedb.org/t/p/w220_and_h330_face${film.poster_path}`}
-                    alt={film.title}
-                  />
-                  {film.title}
-                </InfoWrapper>
-                
+                <Image
+                  src={`https://www.themoviedb.org/t/p/w220_and_h330_face${film.poster_path}`}
+                  alt={film.title}
+                  width={80}
+                  height={120}
+                />
+                {film.title}
               </TableCell>
               <TableCell align="right">{film.vote_average}</TableCell>
               <TableCell align="right">{film.vote_count}</TableCell>
@@ -60,7 +65,7 @@ export const FilmsTable = ({ data }: ITableProps) => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={data.total_results}
+        count={store.filmsMobx.data.total_results}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -68,14 +73,14 @@ export const FilmsTable = ({ data }: ITableProps) => {
       />
     </TableContainer>
   );
-};
+});
 
-const InfoWrapper = styled.div`
-  @media (max-width: 800px) {
-    display: none;
-  }
-`;
+// const InfoWrapper = styled.div`
+//   @media (max-width: 800px) {
+//     display: none;
+//   }
+// `;
 
-const Poster = styled.img`
-  width: 80px;
-`;
+// const Poster = styled.img`
+//   width: 80px;
+// `;

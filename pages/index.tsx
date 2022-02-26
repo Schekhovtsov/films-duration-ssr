@@ -1,4 +1,5 @@
 import { Container, Divider } from '@mui/material';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
@@ -8,11 +9,18 @@ import Navbar from '../components/Navbar';
 import { useStore } from '../components/StoreProvider';
 import { IFilm } from '../utils/types';
 
-// export interface IInitialState {
-//   data: IFilm[]
-// }
+export interface IInitialState {
+  data: IFilm[]
+}
 
 const Home: NextPage = observer(({ initialState }: any) => {
+
+  const store = useStore()
+
+  useEffect(() => {
+    store.initApp();
+  }, [])
+
   return (
     <div>
       <Navbar />
@@ -20,7 +28,7 @@ const Home: NextPage = observer(({ initialState }: any) => {
         <div>
           <h1>Welcome</h1>
         </div>
-        <FilmsTable data={initialState.data} />
+        <FilmsTable /* data={store.filmsMobx} */ />
       </Container>
     </div>
   );

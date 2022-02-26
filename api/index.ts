@@ -12,6 +12,29 @@ const instance = axios.create({
 
 export const api = {
 
+  getTopRated(page = 1) {
+    return instance.get<any>(
+      '/movie/top_rated',
+      {
+        params: {
+          ...API_DEFAULT_PARAMS,
+          page,
+        },
+      },
+    );
+  },
+
+  getFilmByID(id: number) {
+    return instance.get<any>(
+      `/movie/${id}`,
+      {
+        params: {
+          ...API_DEFAULT_PARAMS,
+        },
+      },
+    );
+  },
+
   getFilmByTitle(title: string, page = 1) {
     return instance.get<any>(
       '/search/movie',
