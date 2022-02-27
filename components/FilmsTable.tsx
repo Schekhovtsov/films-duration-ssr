@@ -9,13 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
 import React from 'react';
-import { IFilm } from '../utils/types';
-import { useStore } from './StoreProvider';
+import { IFilm } from '../utils/models';
 
-export const FilmsTable = observer(() => {
-  const store = useStore();
-
-  const films = store.filmsMobx.data.results;
+export const FilmsTable = observer(({data}: ITableProps ) => {
 
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(1);
@@ -39,10 +35,11 @@ export const FilmsTable = observer(() => {
             <TableCell>Title</TableCell>
             <TableCell align="right">Score</TableCell>
             <TableCell align="right">Views</TableCell>
+            <TableCell align="right">Runtime</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {films.map((film: IFilm) => (
+          {data.map((film: IFilm) => (
             <TableRow
               key={film.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -58,6 +55,7 @@ export const FilmsTable = observer(() => {
               </TableCell>
               <TableCell align="right">{film.vote_average}</TableCell>
               <TableCell align="right">{film.vote_count}</TableCell>
+              <TableCell align="right">{film.runtime} min.</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -65,7 +63,7 @@ export const FilmsTable = observer(() => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={store.filmsMobx.data.total_results}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

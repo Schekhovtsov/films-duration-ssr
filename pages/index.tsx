@@ -1,25 +1,18 @@
-import { Container, Divider } from '@mui/material';
-import { toJS } from 'mobx';
+import { Container } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
 import { api } from '../api';
 import { FilmsTable } from '../components/FilmsTable';
 import Navbar from '../components/Navbar';
-import { useStore } from '../components/StoreProvider';
-import { IFilm } from '../utils/types';
+import { IFilm } from '../utils/models';
 
 export interface IInitialState {
-  data: IFilm[]
+  data: IFilm[];
 }
 
 const Home: NextPage = observer(({ initialState }: any) => {
-
-  const store = useStore()
-
-  useEffect(() => {
-    store.initApp();
-  }, [])
+  const films = initialState.films;
+  console.log(films)
 
   return (
     <div>
@@ -28,21 +21,59 @@ const Home: NextPage = observer(({ initialState }: any) => {
         <div>
           <h1>Welcome</h1>
         </div>
-        <FilmsTable /* data={store.filmsMobx} */ />
+        <FilmsTable data={films} />
       </Container>
     </div>
   );
 });
 
 export const getServerSideProps = async () => {
-  const title = 'Godfather';
-  const page = 1;
-  const response = await api.getFilmByTitle(title, page);
+  let isLoading = false;
+  let filmsID: any = [];
+  let films: IFilm[] = [];
+  let film: any;
+
+  let pages = 3;
+
+  try {
+    isLoading = true;
+    filmsID = [];
+    films = [];
+    film = {};
+
+    const pagesArray: number[] = [];
+
+    for (let i = 1; i <= pages; i += 1) {
+      pagesArray.push(i);
+    }
+
+    const requests = pagesArray.map((page) => api.getTopRated(page));
+
+    const temp: any[] = [];
+
+    const response1 = await Promise.all(requests);
+    response1.forEach((r) => {
+      r.data.results.forEach((film: IFilm) => {
+        temp.push(film.id);
+      });
+    });
+
+    filmsID = temp;
+
+    for await (const filmId of filmsID) {
+      const response = await api.getFilmByID(filmId);
+      films.push(response.data);
+    }
+
+    films = films.filter((film: IFilm) => film.vote_count > 5000);
+  } catch (e) {
+    console.log(e);
+  }
 
   return {
     props: {
       initialState: {
-        data: response.data,
+        films: films,
       },
     },
   };
