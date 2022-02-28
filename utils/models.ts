@@ -32,5 +32,5 @@ export interface IGenres {
 }
 
 export interface ITableProps {
-  films: IFilm[];
+  data: IFilm[];
 }
