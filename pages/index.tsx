@@ -28,6 +28,7 @@ const Home: NextPage = observer(({ initialState }: any) => {
 });
 
 export const getServerSideProps = async () => {
+
   let isLoading = false;
   let filmsID: any = [];
   let films: IFilm[] = [];

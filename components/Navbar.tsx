@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const pages = ['Home', 'About'];
 
@@ -69,11 +70,12 @@ const Navbar: FC = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem>
+                <Typography textAlign="center">
+                  <Link href="/">Home</Link>
+                  <Link href="/about">About</Link>
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
 
@@ -83,18 +85,30 @@ const Navbar: FC = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            Films Duration SSR
+            <NavbarLine>
+              <Title>Films Duration</Title>
+              <BorderBlock>SSR</BorderBlock>
+            </NavbarLine>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+            <MenuItem>
+              <Typography textAlign="center">
+                <Link href="/">
+                  <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+                    Home
+                  </Button>
+                </Link>
+              </Typography>
+            </MenuItem>
+            <MenuItem>
+              <Typography textAlign="center">
+                <Link href="/about">
+                  <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+                    About
+                  </Button>
+                </Link>
+              </Typography>
+            </MenuItem>
           </Box>
         </Toolbar>
       </Container>
