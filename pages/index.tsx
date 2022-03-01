@@ -19,7 +19,7 @@ const Home: NextPage = observer(({ initialState }: any) => {
       <Navbar />
       <Container maxWidth="xl">
         <div>
-          <h1>Welcome</h1>
+          <h1>Welcome to Films Duration</h1>
         </div>
         <FilmsTable data={films} />
       </Container>

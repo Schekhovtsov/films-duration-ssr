@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import React, { FC, useState } from 'react';
+import styled from 'styled-components';
 
 const pages = ['Home', 'About'];
 
@@ -33,7 +34,10 @@ const Navbar: FC = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            Films Duration SSR
+            <NavbarLine>
+              <Title>Films Duration</Title>
+              <BorderBlock>SSR</BorderBlock>
+            </NavbarLine>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -99,3 +103,18 @@ const Navbar: FC = () => {
 };
 
 export default Navbar;
+
+const NavbarLine = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Title = styled.div`
+  padding-right: 10px;
+`;
+
+const BorderBlock = styled.div`
+  color: #b6d3ff;
+  padding: 5px;
+  border: 2px solid #b6d3ff;
+`;
