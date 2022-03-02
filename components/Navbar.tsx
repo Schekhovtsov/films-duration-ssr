@@ -9,12 +9,12 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import React, { FC, useState } from 'react';
-import styled from 'styled-components';
 import Link from 'next/link';
-
-const pages = ['Home', 'About'];
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const Navbar: FC = () => {
+  const router = useRouter();
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event: any) => {
@@ -35,10 +35,12 @@ const Navbar: FC = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            <NavbarLine>
-              <Title>Films Duration</Title>
-              <BorderBlock>SSR</BorderBlock>
-            </NavbarLine>
+            <Image
+            src="/../public/logo.png"
+            alt={'Films Duration SSR'}
+            width={210}
+            height={60}
+          />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -72,8 +74,24 @@ const Navbar: FC = () => {
             >
               <MenuItem>
                 <Typography textAlign="center">
-                  <Link href="/">Home</Link>
-                  <Link href="/about">About</Link>
+                  <Link href="/">
+                    <span className={router.pathname == '/' ? 'active' : ''}>
+                      Home
+                    </span>
+                  </Link>
+
+                </Typography>
+              </MenuItem>
+              <MenuItem>
+                <Typography textAlign="center">
+
+                  <Link href="/about">
+                    <span
+                      className={router.pathname == '/about' ? 'active' : ''}
+                    >
+                      About
+                    </span>
+                  </Link>
                 </Typography>
               </MenuItem>
             </Menu>
@@ -85,30 +103,43 @@ const Navbar: FC = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            <NavbarLine>
-              <Title>Films Duration</Title>
-              <BorderBlock>SSR</BorderBlock>
-            </NavbarLine>
+            
+            <Image
+            src="/../public/logo.png"
+            alt={'Films Duration SSR'}
+            width={210}
+            height={60}
+          />
+
+
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <MenuItem>
               <Typography textAlign="center">
                 <Link href="/">
                   <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                    Home
+                    <span className={router.pathname == '/' ? 'active' : ''}>
+                      Home
+                    </span>
                   </Button>
                 </Link>
               </Typography>
             </MenuItem>
+
             <MenuItem>
               <Typography textAlign="center">
                 <Link href="/about">
                   <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                    About
+                    <span
+                      className={router.pathname == '/about' ? 'active' : ''}
+                    >
+                      About
+                    </span>
                   </Button>
                 </Link>
               </Typography>
             </MenuItem>
+            
           </Box>
         </Toolbar>
       </Container>
@@ -117,18 +148,3 @@ const Navbar: FC = () => {
 };
 
 export default Navbar;
-
-const NavbarLine = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Title = styled.div`
-  padding-right: 10px;
-`;
-
-const BorderBlock = styled.div`
-  color: #b6d3ff;
-  padding: 5px;
-  border: 2px solid #b6d3ff;
-`;

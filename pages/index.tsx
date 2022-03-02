@@ -1,9 +1,9 @@
 import { Container } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import type { NextPage } from 'next';
-import { useState } from 'react';
 import { api } from '../api';
 import { FilmsTable } from '../components/FilmsTable';
+import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { IFilm } from '../utils/models';
 
@@ -13,35 +13,26 @@ export interface IInitialState {
 
 const Home: NextPage = observer(({ initialState }: any) => {
   const films = initialState.films;
-  console.log(films)
 
   return (
     <div>
-      <Navbar />
-      <Container maxWidth="xl">
-        <div>
-          <h1>Welcome to Films Duration</h1>
-        </div>
-        <FilmsTable data={films} />
-      </Container>
+      <h1>Welcome to Films Duration</h1>
+      <FilmsTable data={films} />
     </div>
+
   );
 });
 
 export const getStaticProps = async () => {
 
-  let isLoading = false;
   let filmsID: any = [];
   let films: IFilm[] = [];
-  let film: any;
 
   let pages = 3;
 
   try {
-    isLoading = true;
     filmsID = [];
     films = [];
-    film = {};
 
     const pagesArray: number[] = [];
 
