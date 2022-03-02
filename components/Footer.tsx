@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Footer: FC = () => {
   return (
-    <Wrapper>
+    <Wrapper> <br/>
       <div>Films Duration SSR © 2022</div>
       <div>Created by Schekhovtsov</div>
     </Wrapper>
