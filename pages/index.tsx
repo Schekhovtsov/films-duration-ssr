@@ -1,15 +1,18 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { api } from '../api';
 import { FilmsTable } from '../components/FilmsTable';
 import { IFilm } from '../utils/models';
-
-
 
 const Home: NextPage = ({ initialState }: any) => {
   const films = initialState.films;
 
   return (
     <div>
+      <Head>
+        <title>Films Duration SSR</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <h1>Welcome to Films Duration</h1>
       <FilmsTable data={films} />
     </div>
