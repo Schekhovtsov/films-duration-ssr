@@ -76,6 +76,7 @@ export const FilmsTable = observer(({ data }: ITableProps) => {
         pageSize={10}
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
+        disableColumnSelector={true}
         getCellClassName={(params: GridCellParams<any>): any => {
           if (params.field === 'runtime') {
             if (params.value > 160) {
@@ -105,10 +106,6 @@ const TitleCell = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-`;
-
-const PosterWrapper = styled.div`
-  display: flex;
 `;
 
 const InfoWrapper = styled.div`
