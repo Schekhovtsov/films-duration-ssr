@@ -10,7 +10,6 @@ const About: NextPage = () => {
           <h1>About</h1>
           Service that allows you can find out the duration of the films <br />
           The service is based on the themoviedb.org API. <br /><br />
-          <em>Attention:</em>The site is slow due to API specificities<br /><br />
           <strong>Project stack:</strong> TS + Next JS + Axios + Material UI
         </div>
   )

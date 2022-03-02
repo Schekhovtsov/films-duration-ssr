@@ -36,7 +36,7 @@ const Navbar: FC = () => {
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
             <Image
-            src="/../public/logo.png"
+            src="/logo.png"
             alt={'Films Duration SSR'}
             width={210}
             height={60}
