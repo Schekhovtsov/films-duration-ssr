@@ -1,17 +1,11 @@
-import { Container } from '@mui/material';
-import { observer } from 'mobx-react-lite';
 import type { NextPage } from 'next';
 import { api } from '../api';
 import { FilmsTable } from '../components/FilmsTable';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
 import { IFilm } from '../utils/models';
 
-export interface IInitialState {
-  data: IFilm[];
-}
 
-const Home: NextPage = observer(({ initialState }: any) => {
+
+const Home: NextPage = ({ initialState }: any) => {
   const films = initialState.films;
 
   return (
@@ -19,12 +13,10 @@ const Home: NextPage = observer(({ initialState }: any) => {
       <h1>Welcome to Films Duration</h1>
       <FilmsTable data={films} />
     </div>
-
   );
-});
+};
 
 export const getStaticProps = async () => {
-
   let filmsID: any = [];
   let films: IFilm[] = [];
 

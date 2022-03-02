@@ -31,6 +31,6 @@ export interface IGenres {
   name: string;
 }
 
-export interface ITableProps {
+export interface IInitialState {
   data: IFilm[];
 }

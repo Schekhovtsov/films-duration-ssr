@@ -3,15 +3,14 @@ import {
   DataGrid,
   GridCellParams,
   GridColDef,
-  GridRenderCellParams,
+  GridRenderCellParams
 } from '@mui/x-data-grid';
-import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import { ITableProps } from '../utils/models';
+import { IInitialState } from '../utils/models';
 
-export const FilmsTable = observer(({ data }: ITableProps) => {
+export const FilmsTable = ({ data }: IInitialState) => {
   const columns: GridColDef[] = [
     {
       field: 'title',
@@ -100,7 +99,7 @@ export const FilmsTable = observer(({ data }: ITableProps) => {
       />
     </Box>
   );
-});
+};
 
 const TitleCell = styled.div`
   display: flex;
