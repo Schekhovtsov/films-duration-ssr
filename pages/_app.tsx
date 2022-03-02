@@ -1,17 +1,12 @@
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-import NProgress from 'nprogress';
-import '../public/nprogress.css';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { Container } from '@mui/material';
-import { observer } from 'mobx-react-lite';
-import type { NextPage } from 'next';
-import { api } from '../api';
-import { FilmsTable } from '../components/FilmsTable';
+import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import NProgress from 'nprogress';
+import { useEffect } from 'react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-import { IFilm } from '../utils/models';
+import '../public/nprogress.css';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
