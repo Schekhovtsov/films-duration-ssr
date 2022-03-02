@@ -1,8 +1,8 @@
 import { Container } from '@mui/material';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import NProgress from 'nprogress';
 import { useEffect } from 'react';
+import NProgress from 'nprogress';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import '../public/nprogress.css';
