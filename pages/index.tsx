@@ -1,6 +1,7 @@
 import { Container } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import type { NextPage } from 'next';
+import { useState } from 'react';
 import { api } from '../api';
 import { FilmsTable } from '../components/FilmsTable';
 import Navbar from '../components/Navbar';
@@ -27,7 +28,7 @@ const Home: NextPage = observer(({ initialState }: any) => {
   );
 });
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
 
   let isLoading = false;
   let filmsID: any = [];
