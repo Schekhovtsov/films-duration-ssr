@@ -48,6 +48,10 @@ export const FilmsTable = ({ data }: IInitialState) => {
     },
   ];
 
+  const handlePageChange = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   return (
     <Box
       sx={{
@@ -63,6 +67,7 @@ export const FilmsTable = ({ data }: IInitialState) => {
         rowHeight={110}
         columns={columns}
         pageSize={10}
+        onPageChange={handlePageChange}
         disableSelectionOnClick
         disableColumnSelector={true}
         getCellClassName={(params: GridCellParams<any>): any => {
