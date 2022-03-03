@@ -53,7 +53,7 @@ export const getStaticProps = async () => {
       films.push(response.data);
     }
 
-    films = films.filter((film: IFilm) => film.vote_count > 5000);
+    //films = films.filter((film: IFilm) => film.vote_count > 5000);
   } catch (e) {
     console.log(e);
   }

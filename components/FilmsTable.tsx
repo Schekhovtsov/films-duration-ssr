@@ -27,7 +27,9 @@ export const FilmsTable = ({ data }: IInitialState) => {
           <InfoWrapper>
             <Title>{params.value}</Title>
             <ReleaseDate>{params.row.release_date.substring(0, 4)}</ReleaseDate>
-            <Genres>{params.row.genres.map((genre: any) => `${genre.name} `)}</Genres>
+            <Genres>
+              {params.row.genres.map((genre: any) => `${genre.name} `)}
+            </Genres>
           </InfoWrapper>
         </TitleCell>
       ),
@@ -40,28 +42,16 @@ export const FilmsTable = ({ data }: IInitialState) => {
     {
       field: 'runtime',
       headerName: 'Runtime',
+      renderCell: (params: GridRenderCellParams<any>) =>
+        `${params.value} minutes`,
       flex: 1,
     },
   ];
 
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [page, setPage] = React.useState(1);
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   return (
     <Box
       sx={{
-        height: 1300,
+        height: 1250,
         width: '100%',
         '& .red': { backgroundColor: '#ffd6d6' },
         '& .green': { backgroundColor: '#e2ffd8' },
@@ -73,7 +63,6 @@ export const FilmsTable = ({ data }: IInitialState) => {
         rowHeight={110}
         columns={columns}
         pageSize={10}
-        rowsPerPageOptions={[5]}
         disableSelectionOnClick
         disableColumnSelector={true}
         getCellClassName={(params: GridCellParams<any>): any => {
@@ -125,4 +114,3 @@ const Genres = styled.div`
   color: #8a8a8a;
   font-style: italic;
 `;
-

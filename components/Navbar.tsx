@@ -35,14 +35,13 @@ const Navbar: FC = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            <Image
-            src="/logo.png"
-            alt={'Films Duration SSR'}
-            width={210}
-            height={60}
-          />
+              <Image
+                src="/logo.png"
+                alt={'Films Duration SSR'}
+                width={210}
+                height={60}
+              />
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -79,12 +78,10 @@ const Navbar: FC = () => {
                       Home
                     </span>
                   </Link>
-
                 </Typography>
               </MenuItem>
               <MenuItem>
                 <Typography textAlign="center">
-
                   <Link href="/about">
                     <span
                       className={router.pathname == '/about' ? 'active' : ''}
@@ -96,22 +93,18 @@ const Navbar: FC = () => {
               </MenuItem>
             </Menu>
           </Box>
-
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            
-            <Image
-            src="/../public/logo.png"
-            alt={'Films Duration SSR'}
-            width={210}
-            height={60}
-          />
-
-
+              <Image
+                src="/logo.png"
+                alt={'Films Duration SSR'}
+                width={210}
+                height={60}
+              />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <MenuItem>
@@ -139,7 +132,6 @@ const Navbar: FC = () => {
                 </Link>
               </Typography>
             </MenuItem>
-            
           </Box>
         </Toolbar>
       </Container>
