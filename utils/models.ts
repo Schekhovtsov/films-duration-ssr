@@ -30,7 +30,9 @@ export interface IGenres {
   id: number;
   name: string;
 }
-
 export interface IInitialState {
+  films: IFilm[];
+}
+export interface ITableProps {
   data: IFilm[];
 }

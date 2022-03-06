@@ -8,9 +8,9 @@ import {
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import { IInitialState } from '../utils/models';
+import { ITableProps } from '../utils/models';
 
-export const FilmsTable = ({ data }: IInitialState) => {
+export const FilmsTable = ({ data }: ITableProps) => {
   const columns: GridColDef[] = [
     {
       field: 'title',

@@ -2,10 +2,9 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { api } from '../api';
 import { FilmsTable } from '../components/FilmsTable';
-import { IFilm } from '../utils/models';
+import { IFilm, IInitialState } from '../utils/models';
 
-const Home: NextPage = ({ initialState }: any) => {
-  const films = initialState.films;
+const Home: NextPage<IInitialState> = ({ films }) => {
 
   return (
     <div>
@@ -37,32 +36,25 @@ export const getStaticProps = async () => {
 
     const requests = pagesArray.map((page) => api.getTopRated(page));
 
-    const temp: any[] = [];
-
     const response1 = await Promise.all(requests);
     response1.forEach((r) => {
       r.data.results.forEach((film: IFilm) => {
-        temp.push(film.id);
+        filmsID.push(film.id);
       });
     });
-
-    filmsID = temp;
 
     for await (const filmId of filmsID) {
       const response = await api.getFilmByID(filmId);
       films.push(response.data);
     }
 
-    //films = films.filter((film: IFilm) => film.vote_count > 5000);
   } catch (e) {
     console.log(e);
   }
 
   return {
     props: {
-      initialState: {
-        films: films,
-      },
+      films: films,
     },
   };
 };
