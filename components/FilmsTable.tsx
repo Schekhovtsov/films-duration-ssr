@@ -6,6 +6,7 @@ import {
   GridRenderCellParams
 } from '@mui/x-data-grid';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import { ITableProps } from '../utils/models';
@@ -25,7 +26,7 @@ export const FilmsTable = ({ data }: ITableProps) => {
             height={65}
           />
           <InfoWrapper>
-            <Title>{params.value}</Title>
+            <Title><Link href={'/'+params.row.id}>{params.value}</Link></Title>
             <ReleaseDate>{params.row.release_date.substring(0, 4)}</ReleaseDate>
             <Genres>
               {params.row.genres.map((genre: any) => `${genre.name} `)}
