@@ -3,8 +3,8 @@ import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import NProgress from 'nprogress';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import Footer from '../components/Layout/Footer';
+import Navbar from '../components/Layout/Navbar';
 import '../public/nprogress.css';
 import '../styles/globals.css';
 

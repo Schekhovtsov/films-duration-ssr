@@ -3,30 +3,39 @@ import {
   DataGrid,
   GridCellParams,
   GridColDef,
-  GridRenderCellParams
+  GridRenderCellParams,
 } from '@mui/x-data-grid';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import styled from 'styled-components';
-import { ITableProps } from '../utils/models';
+import { styled } from '@mui/system';
+import { ITableProps } from '../../utils/models';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const FilmsTable = ({ data }: ITableProps) => {
+
+  const theme = useTheme();
+  const desktop = useMediaQuery(theme.breakpoints.up('sm'));
+
   const columns: GridColDef[] = [
     {
       field: 'title',
       headerName: 'Title',
       flex: 8,
+      minWidth: 300,
       renderCell: (params: GridRenderCellParams<any>) => (
         <TitleCell>
-          <Image
-            src={`https://www.themoviedb.org/t/p/w220_and_h330_face${params.row.poster_path}`}
+          { desktop && <Image
+            src={`https://image.tmdb.org/t/p/w500${params.row.poster_path}`}
             alt={params.value}
             width={45}
-            height={65}
-          />
+            height={70}
+          /> }          
           <InfoWrapper>
-            <Title><Link href={'/'+params.row.id}>{params.value}</Link></Title>
+            <Title>
+              <Link href={'/film/' + params.row.id}>{params.value}</Link>
+            </Title>
             <ReleaseDate>{params.row.release_date.substring(0, 4)}</ReleaseDate>
             <Genres>
               {params.row.genres.map((genre: any) => `${genre.name} `)}
@@ -39,6 +48,7 @@ export const FilmsTable = ({ data }: ITableProps) => {
       field: 'vote_average',
       headerName: 'Score',
       flex: 1,
+      minWidth: 100,
     },
     {
       field: 'runtime',
@@ -46,12 +56,13 @@ export const FilmsTable = ({ data }: ITableProps) => {
       renderCell: (params: GridRenderCellParams<any>) =>
         `${params.value} minutes`,
       flex: 1,
+      minWidth: 100,
     },
   ];
 
   const handlePageChange = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  };
 
   return (
     <Box
@@ -96,27 +107,27 @@ export const FilmsTable = ({ data }: ITableProps) => {
   );
 };
 
-const TitleCell = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-`;
+const TitleCell = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+});
 
-const InfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-`;
+const InfoWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  marginLeft: '10px',
+});
 
-const Title = styled.div`
-  font-size: 18px;
-`;
+const Title = styled('div')({
+  fontSize: '20px',
+});
 
-const ReleaseDate = styled.div`
-  display: flex;
-`;
+const ReleaseDate = styled('div')({
+  display: 'flex',
+});
 
-const Genres = styled.div`
-  color: #8a8a8a;
-  font-style: italic;
-`;
+const Genres = styled('div')({
+  color: '#8a8a8a',
+  fontStyle: 'italic',
+});

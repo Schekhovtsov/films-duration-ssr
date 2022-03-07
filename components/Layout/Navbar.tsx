@@ -35,12 +35,7 @@ const Navbar: FC = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-              <Image
-                src="/logo.png"
-                alt={'Films Duration SSR'}
-                width={210}
-                height={60}
-              />
+            <Link href="/">Films Duration SSR</Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -99,12 +94,7 @@ const Navbar: FC = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-              <Image
-                src="/logo.png"
-                alt={'Films Duration SSR'}
-                width={210}
-                height={60}
-              />
+            <Link href="/">Films Duration SSR</Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <MenuItem>

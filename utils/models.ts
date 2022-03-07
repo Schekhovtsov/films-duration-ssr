@@ -16,7 +16,7 @@ export interface IFilm {
   production_countries?: any[];
   release_date?: string;
   revenue?: number;
-  runtime?: number;
+  runtime?: number | undefined;
   spoken_languages?: any[];
   status?: string;
   tagline?: string;
@@ -38,5 +38,4 @@ export interface ITableProps {
 }
 export interface IMoviePageProps {
   film: IFilm;
-  context: any;
 }

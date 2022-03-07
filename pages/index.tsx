@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { api } from '../api';
-import { FilmsTable } from '../components/FilmsTable';
+import { FilmsTable } from '../components/Data/FilmsTable';
 import { IFilm, IInitialState } from '../utils/models';
 
 const Home: NextPage<IInitialState> = ({ films }) => {
