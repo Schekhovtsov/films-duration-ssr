@@ -1,25 +1,62 @@
-import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { styled } from '@mui/system';
 import Head from 'next/head';
 import Image from 'next/image';
 import { NextPage } from 'next/types';
 import { api } from '../../api';
-import { IMoviePageProps, IFilm } from '../../utils/models';
-import { styled } from '@mui/system';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { yellow } from '@mui/material/colors';
-import MuiBox from "@mui/material/Box";
+import { IFilm, IMoviePageProps } from '../../utils/models';
 
 const Info = ({ film }: IMoviePageProps) => {
   return (
-    <div>
+    <>
       <div>
-        <h1>{film.title}</h1>
+        <Typography variant="h4" component="div" gutterBottom>
+          {film.title}
+        </Typography>
       </div>
-      <div>Score: {film.vote_average} minutes</div>
+      <div>
+        <Typography variant="h5" component="div" gutterBottom>
+          Score: {film.vote_average}
+        </Typography>
+      </div>
       <div>Runtime: {film.runtime && getHumanRuntime(film.runtime)}</div>
-    </div>
+
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{
+          marginTop: '3vh',
+          textTransform: 'uppercase',
+          letterSpacing: '-1px',
+          '& .red': {
+            padding: '5px',
+            border: '2px solid #f0351d',
+            color: '#f0351d',
+          },
+          '& .green': {
+            padding: '5px',
+            border: '2px solid #18e054',
+            color: '#18e054',
+          },
+          '& .yellow': {
+            padding: '5px',
+            border: '2px solid #e4bc09',
+            color: '#e4bc09',
+          },
+        }}
+      >
+        {film.runtime && film.runtime > 160 ? (
+          <span className="red">It will take a long time</span>
+        ) : film.runtime && film.runtime <= 100 && film.runtime < 160 ? (
+          <span className="green">Сan watch</span>
+        ) : (
+          <span className="yellow">Could try</span>
+        )}
+      </Typography>
+    </>
   );
 };
 
@@ -40,26 +77,16 @@ const MoviePage: NextPage<IMoviePageProps> = ({ film }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Paper elevation={0} sx={{ my: '2rem' }}>
-        <MyFlex>
+        <Wrapper>
           <ImageWrapper>
-            { desktop
-            ? (<Poster desktop>
-            <Image
-               src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
-               alt={film.title}
-               width={200}
-               height={300}
-             />
-            </Poster>)
-          : (<Poster>
-            <Image
-               src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
-               alt={film.title}
-               width={200}
-               height={300}
-             />
-            </Poster>)
-           }          
+            <Poster desktop={desktop}>
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
+                alt={film.title}
+                width={200}
+                height={300}
+              />
+            </Poster>
           </ImageWrapper>
           <div>
             {desktop ? (
@@ -68,12 +95,13 @@ const MoviePage: NextPage<IMoviePageProps> = ({ film }) => {
               </DesktopInfoWrapper>
             ) : (
               <MobileInfoWrapper>
-                <Info film={film} />
+                <MobileInfoContent>
+                  <Info film={film} />
+                </MobileInfoContent>
               </MobileInfoWrapper>
             )}
           </div>
-        </MyFlex>
-    
+        </Wrapper>
       </Paper>
     </div>
   );
@@ -98,31 +126,38 @@ export const getServerSideProps = async (context: any) => {
 
 export default MoviePage;
 
-const ImageWrapper = styled('div')(({desktop}: any) => ({
+const ImageWrapper = styled('div')(({
   display: 'flex',
   justifyContent: 'center',
 }));
+interface PosterProps {
+  desktop: boolean,
+}
 
-const Poster = styled(ImageWrapper, {
-  shouldForwardProp: (prop) => prop !== "desktop"
-})(({ desktop }: any ) => ({
+const Poster = styled(ImageWrapper)<SomeProps>(({desktop}: any) => ({
   width: desktop ? 'auto' : '100vw',
 }));
 
-const MyFlex = styled('div')({
+const Wrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
 });
 
 const DesktopInfoWrapper = styled('div')({
-  margin: '-30px 0 0 30px',
+  margin: '-8px 0 0 30px',
   minWidth: '350px',
 });
 
 const MobileInfoWrapper = styled('div')({
-  margin: '0 0 0 0',
-  minWidth: '350px',
+  display: 'flex',
+  justifyContent: 'center',
+  margin: '30px auto',
+  minWidth: '100vw',
 });
 
-
+const MobileInfoContent = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});

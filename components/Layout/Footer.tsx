@@ -12,11 +12,11 @@ const Footer: FC = () => {
 
 export default Footer;
 
-const Wrapper = styled.div`
-  height: 100px;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+const Wrapper = styled('div')({
+  height: '100px',
+  marginTop: '30px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});

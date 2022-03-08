@@ -39,3 +39,7 @@ export interface ITableProps {
 export interface IMoviePageProps {
   film: IFilm;
 }
+export interface IPosterProps {
+  film: IFilm;
+  desktop: boolean,
+}
