@@ -12,9 +12,9 @@ import { styled } from '@mui/system';
 import { ITableProps } from '../../utils/models';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { getHumanRuntime } from '../../utils/runtimeConverter';
 
 export const FilmsTable = ({ data }: ITableProps) => {
-
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -25,23 +25,35 @@ export const FilmsTable = ({ data }: ITableProps) => {
       flex: 8,
       minWidth: 300,
       renderCell: (params: GridRenderCellParams<any>) => (
-        <TitleCell>
-          { desktop && <Image
-            src={`https://image.tmdb.org/t/p/w500${params.row.poster_path}`}
-            alt={params.value}
-            width={45}
-            height={70}
-          /> }          
-          <InfoWrapper>
-            <Title>
-              <Link href={'/film/' + params.row.id}>{params.value}</Link>
-            </Title>
-            <ReleaseDate>{params.row.release_date.substring(0, 4)}</ReleaseDate>
-            <Genres>
-              {params.row.genres.map((genre: any) => `${genre.name} `)}
-            </Genres>
-          </InfoWrapper>
-        </TitleCell>
+        <CellFlex>
+          <LineWrapper>
+            <Image
+              src={`https://image.tmdb.org/t/p/w500${params.row.poster_path}`}
+              alt={params.value}
+              width={45}
+              height={70}
+            />
+            <InfoWrapper>
+              <Title>
+                <Link href={'/film/' + params.row.id}>{params.value}</Link>
+              </Title>
+              <ReleaseDate>
+                {params.row.release_date.substring(0, 4)}
+              </ReleaseDate>
+              <Genres>
+                {params.row.genres.map((genre: any) => `${genre.name} `)}
+              </Genres>
+            </InfoWrapper>
+          </LineWrapper>
+          {
+            !desktop &&
+            <LineWrapper>
+              <RuntimeWrapper>
+                Runtime: {getHumanRuntime(params.row.runtime)}
+              </RuntimeWrapper>
+            </LineWrapper>
+          }
+        </CellFlex>
       ),
     },
     {
@@ -49,6 +61,7 @@ export const FilmsTable = ({ data }: ITableProps) => {
       headerName: 'Score',
       flex: 1,
       minWidth: 100,
+      hide: !desktop,
     },
     {
       field: 'runtime',
@@ -57,6 +70,7 @@ export const FilmsTable = ({ data }: ITableProps) => {
         `${params.value} minutes`,
       flex: 1,
       minWidth: 100,
+      hide: !desktop,
     },
   ];
 
@@ -107,16 +121,25 @@ export const FilmsTable = ({ data }: ITableProps) => {
   );
 };
 
-const TitleCell = styled('div')({
+const CellFlex = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+});
+
+const LineWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'flex-start',
 });
 
 const InfoWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   marginLeft: '10px',
+});
+
+const RuntimeWrapper = styled('div')({
+  margin: '10px 0',
 });
 
 const Title = styled('div')({

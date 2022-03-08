@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { NextPage } from 'next/types';
 import { api } from '../../api';
 import { IFilm, IMoviePageProps } from '../../utils/models';
+import { getHumanRuntime } from '../../utils/runtimeConverter';
 
 const Info = ({ film }: IMoviePageProps) => {
   return (
@@ -58,12 +59,6 @@ const Info = ({ film }: IMoviePageProps) => {
       </Typography>
     </>
   );
-};
-
-const getHumanRuntime = (filmRuntime: number): string => {
-  const hours = Math.trunc(filmRuntime / 60);
-  const minutes = filmRuntime % 60;
-  return `${hours} hours ${minutes} min`;
 };
 
 const MoviePage: NextPage<IMoviePageProps> = ({ film }) => {
