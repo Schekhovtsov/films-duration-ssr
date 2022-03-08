@@ -134,7 +134,7 @@ interface PosterProps {
   desktop: boolean,
 }
 
-const Poster = styled(ImageWrapper)<SomeProps>(({desktop}: any) => ({
+const Poster = styled(ImageWrapper)<PosterProps>(({desktop}: any) => ({
   width: desktop ? 'auto' : '100vw',
 }));
 
