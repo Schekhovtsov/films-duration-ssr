@@ -13,7 +13,7 @@ const Info = ({ film }: IMoviePageProps) => {
   return (
     <>
       <div>
-        <Typography variant="h4" component="div" gutterBottom>
+        <Typography variant="h4" component="div" gutterBottom align='center'>
           {film.title}
         </Typography>
       </div>
@@ -134,8 +134,8 @@ interface PosterProps {
   desktop: boolean,
 }
 
-const Poster = styled(ImageWrapper)<PosterProps>(({desktop}: any) => ({
-  width: desktop ? 'auto' : '100vw',
+const Poster = styled(ImageWrapper)<PosterProps>(({desktop}) => ({
+  width: desktop ? 'auto' : '95vw',
 }));
 
 const Wrapper = styled('div')({
@@ -152,8 +152,8 @@ const DesktopInfoWrapper = styled('div')({
 const MobileInfoWrapper = styled('div')({
   display: 'flex',
   justifyContent: 'center',
-  margin: '30px auto',
-  minWidth: '100vw',
+  margin: '30px 0 0 0',
+  minWidth: '95vw',
 });
 
 const MobileInfoContent = styled('div')({
