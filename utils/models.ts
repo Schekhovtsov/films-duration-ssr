@@ -43,3 +43,7 @@ export interface IPosterProps {
   film: IFilm;
   desktop: boolean,
 }
+
+export interface IDesktopBoolean {
+  desktop: boolean,
+}

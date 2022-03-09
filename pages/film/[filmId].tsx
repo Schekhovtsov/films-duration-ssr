@@ -7,7 +7,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { NextPage } from 'next/types';
 import { api } from '../../api';
-import { IFilm, IMoviePageProps } from '../../utils/models';
+import { IFilm, IMoviePageProps, IDesktopBoolean } from '../../utils/models';
 import { getHumanRuntime } from '../../utils/runtimeConverter';
 
 const Info = ({ film }: IMoviePageProps) => {
@@ -125,11 +125,8 @@ const ImageWrapper = styled('div')(({
   display: 'flex',
   justifyContent: 'center',
 }));
-interface PosterProps {
-  desktop: boolean,
-}
 
-const Poster = styled(ImageWrapper)<PosterProps>(({desktop}) => ({
+const Poster = styled(ImageWrapper)<IDesktopBoolean>(({desktop}) => ({
   width: desktop ? 'auto' : '95vw',
 }));
 

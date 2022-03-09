@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { styled } from '@mui/system';
-import { ITableProps } from '../../utils/models';
+import { IDesktopBoolean, ITableProps } from '../../utils/models';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { getHumanRuntime } from '../../utils/runtimeConverter';
@@ -45,14 +45,31 @@ export const FilmsTable = ({ data }: ITableProps) => {
               </Genres>
             </InfoWrapper>
           </LineWrapper>
-          {
-            !desktop &&
+          {!desktop && (
             <LineWrapper>
               <RuntimeWrapper>
-                Runtime: {getHumanRuntime(params.row.runtime)}
+                Score: {params.row.vote_average} &nbsp;&nbsp;&nbsp; Runtime:{' '}
+                {getHumanRuntime(params.row.runtime)} &nbsp;&nbsp;&nbsp;
+                <Box
+                  sx={{
+                    '& .red': { width: 100, backgroundColor: '#f0351d' },
+                    '& .green': { backgroundColor: '#18e054' },
+                    '& .yellow': { backgroundColor: '#e4bc09' },
+                  }}
+                >
+                  {params.row.runtime && params.row.runtime > 160 ? (
+                    <span className="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  ) : params.row.runtime &&
+                    params.row.runtime <= 100 &&
+                    params.row.runtime < 160 ? (
+                    <span className="green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  ) : (
+                    <span className="yellow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  )}
+                </Box>
               </RuntimeWrapper>
             </LineWrapper>
-          }
+          )}
         </CellFlex>
       ),
     },
@@ -81,7 +98,7 @@ export const FilmsTable = ({ data }: ITableProps) => {
   return (
     <Box
       sx={{
-        height: 1250,
+        height: desktop ? 1250 : 1400,
         width: '100%',
         '& .red': { backgroundColor: '#ffd6d6' },
         '& .green': { backgroundColor: '#e2ffd8' },
@@ -90,7 +107,7 @@ export const FilmsTable = ({ data }: ITableProps) => {
     >
       <DataGrid
         rows={data}
-        rowHeight={110}
+        rowHeight={desktop ? 110 : 135}
         columns={columns}
         pageSize={10}
         onPageChange={handlePageChange}
@@ -139,7 +156,9 @@ const InfoWrapper = styled('div')({
 });
 
 const RuntimeWrapper = styled('div')({
-  margin: '10px 0',
+  display: 'flex',
+  flexDirection: 'row',
+  margin: '10px 0 0 0',
 });
 
 const Title = styled('div')({
