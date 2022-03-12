@@ -27,12 +27,14 @@ export const FilmsTable = ({ data }: ITableProps) => {
       renderCell: (params: GridRenderCellParams<any>) => (
         <CellFlex>
           <LineWrapper>
-            <Image
+            {
+              desktop && <Image
               src={`https://image.tmdb.org/t/p/w500${params.row.poster_path}`}
               alt={params.value}
               width={45}
               height={70}
             />
+            }
             <InfoWrapper>
               <Title>
                 <Link href={'/film/' + params.row.id}>{params.value}</Link>
@@ -53,8 +55,8 @@ export const FilmsTable = ({ data }: ITableProps) => {
                 <Box
                   sx={{
                     '& .red': { width: 100, backgroundColor: '#f0351d' },
-                    '& .green': { backgroundColor: '#18e054' },
-                    '& .yellow': { backgroundColor: '#e4bc09' },
+                    '& .green': { width: 100, backgroundColor: '#18e054' },
+                    '& .yellow': { width: 100, backgroundColor: '#e4bc09' },
                   }}
                 >
                   {params.row.runtime && params.row.runtime > 160 ? (
@@ -158,7 +160,7 @@ const InfoWrapper = styled('div')({
 const RuntimeWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  margin: '10px 0 0 0',
+  margin: '10px 10px',
 });
 
 const Title = styled('div')({

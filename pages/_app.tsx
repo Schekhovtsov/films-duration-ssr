@@ -35,8 +35,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Navbar />
       <Container maxWidth="xl">
         <Component {...pageProps} />
-        <Footer />
+        
       </Container>
+      <Footer />
     </div>
   );
 }
